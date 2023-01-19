@@ -14,6 +14,13 @@ public class GuestFactory {
         return criarGuest();
     }
 
+    public static GuestRequest guestAtualizarNomeEmailPhone(GuestRequest guest) {
+        guest.setName(Utils.faker.name().fullName());
+        guest.setEmail(Utils.faker.internet().emailAddress());
+        guest.setPhone(Utils.faker.phoneNumber().cellPhone());
+        return guest;
+    }
+
     public static GuestRequest guestComIdadeMenorQueDezoito() {
         GuestRequest guestIdadeMenorQueDezoito = criarGuest();
         guestIdadeMenorQueDezoito.setDateOfBirth(dateFormat.format(Utils.faker.date().birthday(0, 17)));

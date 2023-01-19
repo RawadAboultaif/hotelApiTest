@@ -1,43 +1,44 @@
 package br.com.hotelaria.client;
 
+import br.com.hotelaria.data.changeless.EmployeeData;
 import br.com.hotelaria.data.changeless.GuestData;
 import br.com.hotelaria.specs.AuthSpecs;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class GuestClient {
+public class EmployeeClient {
 
-    public Response cadastrarGuest(String guest) {
+    public Response cadastrarEmployee(String employee) {
 
         return
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .body(guest)
+                    .body(employee)
                 .when()
-                    .post(GuestData.ENDPOINT_GUEST)
+                    .post(EmployeeData.ENDPOINT_EMPLOYEE)
                 ;
     }
 
-    public Response deletarGuest(Integer idGuest) {
+    public Response deletarEmployee(Integer idEmployee) {
         return
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .pathParam(GuestData.ID_GUEST, idGuest)
+                    .pathParam(EmployeeData.ID_EMPLOYEE, idEmployee)
                 .when()
-                    .delete(GuestData.ENDPOINT_GUEST + String.format("{%s}", GuestData.ID_GUEST))
+                    .delete(EmployeeData.ENDPOINT_EMPLOYEE + String.format("{%s}", EmployeeData.ID_EMPLOYEE))
                 ;
     }
 
-    public Response buscarTodosGuest() {
+    public Response buscarTodosEmployee() {
         return
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
                 .when()
-                    .get(GuestData.ENDPOINT_LIST_ALL_GUEST)
+                    .get(EmployeeData.ENDPOINT_LIST_ALL_EMPLOYEE)
                 ;
     }
 
@@ -46,21 +47,21 @@ public class GuestClient {
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .pathParam(GuestData.SOCIAL_SECURITY_NUMBER_GUEST, cpf)
+                    .pathParam(EmployeeData.SOCIAL_SECURITY_NUMBER_EMPLOYEE, cpf)
                 .when()
-                    .get(GuestData.ENDPOINT_BUSCA_POR_CPF_GUEST + String.format("{%s}", GuestData.SOCIAL_SECURITY_NUMBER_GUEST))
+                    .get(EmployeeData.ENDPOINT_BUSCA_POR_CPF_EMPLOYEE + String.format("{%s}", EmployeeData.SOCIAL_SECURITY_NUMBER_EMPLOYEE))
                 ;
     }
 
-    public Response atualizarGuest(String guest, Integer id) {
+    public Response atualizarEmployee(String guest, Integer id) {
         return
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .pathParam(GuestData.ID_GUEST, id)
+                    .pathParam(EmployeeData.ID_EMPLOYEE, id)
                     .body(guest)
                 .when()
-                    .put(GuestData.ENDPOINT_ATUALIZAR_GUEST + String.format("{%s}", GuestData.ID_GUEST))
+                    .put(EmployeeData.ENDPOINT_ATUALIZAR_EMPLOYEE + String.format("{%s}", EmployeeData.ID_EMPLOYEE))
                 ;
     }
 }
