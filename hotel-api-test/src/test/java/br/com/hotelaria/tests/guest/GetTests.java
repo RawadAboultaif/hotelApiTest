@@ -10,6 +10,7 @@ import io.qameta.allure.Story;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GetTests extends BaseTest {
@@ -24,9 +25,9 @@ public class GetTests extends BaseTest {
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestRequest novoGuest2Request = GuestFactory.guestCompleto();
 
-        GuestResponse guestResponse = guestClient.cadastrar(Utils.convertGuestToJson(novoGuestRequest))
+        GuestResponse guestResponse = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
                 .then().extract().as(GuestResponse.class);
-        GuestResponse guestResponse2 = guestClient.cadastrar(Utils.convertGuestToJson(novoGuest2Request))
+        GuestResponse guestResponse2 = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuest2Request))
                 .then().extract().as(GuestResponse.class);;
 
         GuestResponse[] listaGuestRequest = guestClient.buscarTodosGuest()
@@ -37,8 +38,8 @@ public class GetTests extends BaseTest {
         assertNotNull(listaGuestRequest);
         assertTrue(listaGuestRequest.length >= 2);
 
-        guestClient.deletar(guestResponse.getId());
-        guestClient.deletar(guestResponse2.getId());
+        guestClient.deletarGuest(guestResponse.getId());
+        guestClient.deletarGuest(guestResponse2.getId());
 
     }
 
@@ -49,11 +50,11 @@ public class GetTests extends BaseTest {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
 
-        GuestResponse guestResponse = guestClient.cadastrar(Utils.convertGuestToJson(novoGuestRequest))
+        GuestResponse guestCadastrado = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
                 .then()
                 .extract().as(GuestResponse.class);
 
-        GuestResponse guestBuscado = guestClient.buscarGuestPorCpf(guestResponse.getSocialSecurityNumber())
+        GuestResponse guestBuscado = guestClient.buscarGuestPorCpf(guestCadastrado.getSocialSecurityNumber())
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_OK)
@@ -66,5 +67,17 @@ public class GetTests extends BaseTest {
         assertEquals(novoGuestRequest.getSocialSecurityNumber(), guestBuscado.getSocialSecurityNumber());
         assertTrue(guestBuscado.getGuestAddress().isEmpty());
         assertTrue(guestBuscado.getGuestPayment().isEmpty());
+
+        guestClient.deletarGuest(guestCadastrado.getId());
+    }
+
+    @Test
+    @Story("Deve retornar erro padrão ao buscar guest")
+    public void testDeveRetornarErroAoBuscarGuestComCpfInvalido() {
+
+        guestClient.buscarGuestPorCpf(Utils.faker.number().digits(20))
+                .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND)
+                .body(containsString("O Cpf não esta cadastrado"));
     }
 }

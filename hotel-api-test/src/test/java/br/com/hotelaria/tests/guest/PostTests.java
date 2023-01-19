@@ -30,7 +30,7 @@ public class PostTests extends BaseTest {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
 
-        GuestResponse guestResponse = guestClient.cadastrar(Utils.convertGuestToJson(novoGuestRequest))
+        GuestResponse guestResponse = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_CREATED)
@@ -42,34 +42,47 @@ public class PostTests extends BaseTest {
         assertEquals(novoGuestRequest.getDateOfBirth(), guestResponse.getDateOfBirth());
         assertEquals(novoGuestRequest.getSocialSecurityNumber(), guestResponse.getSocialSecurityNumber());
 
-        guestClient.deletar(guestResponse.getId());
+        guestClient.deletarGuest(guestResponse.getId());
     }
 
     @Test
-    @Story("Deve erro padrão ao tentar cadastrar guest")
+    @Story("Deve retornar erro padrão ao tentar cadastrar guest")
     public void testDeveRetornarErroPadraoAoCadastrarGuestComCamposVazios() {
 
         GuestRequest guestRequestVazio = GuestFactory.guestComTodosCamposVazios();
-        guestClient.cadastrar(Utils.convertGuestToJson(guestRequestVazio))
+        guestClient.cadastrarGuest(Utils.convertGuestToJson(guestRequestVazio))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O nome não pode ser estar vazio"))
+                .body(containsString("O nome não pode estar vazio"))
                 .body(containsString("O telefone não pode estar vazio"))
-                .body(containsString("O cpf não pode ser estar vazio"))
+                .body(containsString("O cpf é inválido"))
                 .body(containsString("A data de nascimento não pode ser nulo"))
                 .body(containsString("O email não pode estar vazio"));
     }
 
     @Test
-    @Story("Deve erro padrão ao tentar cadastrar guest")
+    @Story("Deve retornar erro padrão ao tentar cadastrar guest")
     public void testDeveRetornarErroPadraoAoCadastrarGuestComDataNascimentoNoFuturo() {
 
         GuestRequest guestRequestComDataNascimentoFuturo = GuestFactory.guestCompletoComDataNascimentoNoFuturo();
-        guestClient.cadastrar(Utils.convertGuestToJson(guestRequestComDataNascimentoFuturo))
+        guestClient.cadastrarGuest(Utils.convertGuestToJson(guestRequestComDataNascimentoFuturo))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(containsString("A data tem quer anterior a data atual"));
+    }
+
+    @Test
+    @Story("Deve retornar erro padrão ao tentar cadastrar guest")
+    public void testeDeveRetornarErroPadraoAoCadastrarGuestComIdadeMenorQueDezoito() {
+
+        GuestRequest guestRequestComIdadeMenorQueDezoito = GuestFactory.guestComIdadeMenorQueDezoito();
+
+        guestClient.cadastrarGuest(Utils.convertGuestToJson(guestRequestComIdadeMenorQueDezoito))
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(containsString("Idade menor que 18"));
     }
 }
