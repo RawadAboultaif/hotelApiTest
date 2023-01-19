@@ -3,6 +3,7 @@ package br.com.hotelaria.utils;
 
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.guest.GuestRequest;
+import br.com.hotelaria.dto.payment.PaymentRequest;
 import com.google.gson.Gson;
 import net.datafaker.Faker;
 
@@ -48,6 +49,6 @@ public class Utils {
         return Manipulation.getProp().getProperty("prop.env");
     }
     public static String convertGuestToJson(GuestRequest guestRequest) { return new Gson().toJson(guestRequest);}
-
     public static String convertEmployeeToJson(EmployeeRequest employeeRequest) { return new Gson().toJson(employeeRequest);}
+    public static String convertPaymentToJson(PaymentRequest paymentRequest) { return new Gson().toJson(paymentRequest);}
 }
