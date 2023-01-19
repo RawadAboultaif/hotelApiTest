@@ -6,12 +6,18 @@ import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.tests.base.BaseTest;
 import br.com.hotelaria.utils.Utils;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 
+@Epic("Delete Tests")
+@Feature("Guest")
+@DisplayName("Delete Guest")
 public class DeleteTests extends BaseTest {
 
     GuestClient guestClient = new GuestClient();

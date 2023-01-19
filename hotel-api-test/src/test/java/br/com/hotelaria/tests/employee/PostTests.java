@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Epic("Cadastrar Tests")
+@Epic("Cadastro Tests")
 @Feature("Employee")
-@DisplayName("Cadastrar Employee")
+@DisplayName("Cadastro Employee")
 public class PostTests extends BaseTest {
 
     EmployeeClient employeeClient = new EmployeeClient();

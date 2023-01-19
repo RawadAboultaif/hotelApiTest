@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PaymentResponse {
 
-    private Long id;
+    private Integer id;
     private String method;
     private String card;
 }
