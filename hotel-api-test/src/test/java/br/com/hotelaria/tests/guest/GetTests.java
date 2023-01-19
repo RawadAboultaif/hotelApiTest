@@ -6,13 +6,19 @@ import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.tests.base.BaseTest;
 import br.com.hotelaria.utils.Utils;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Busca Tests")
+@Feature("Guest")
+@DisplayName("Busca Guest")
 public class GetTests extends BaseTest {
 
     GuestClient guestClient = new GuestClient();

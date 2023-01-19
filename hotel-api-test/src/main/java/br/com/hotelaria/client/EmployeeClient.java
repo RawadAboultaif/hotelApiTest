@@ -42,7 +42,7 @@ public class EmployeeClient {
                 ;
     }
 
-    public Response buscarGuestPorCpf(String cpf) {
+    public Response buscarEmployeePorCpf(String cpf) {
         return
                 given()
                     .log().all()
@@ -53,13 +53,13 @@ public class EmployeeClient {
                 ;
     }
 
-    public Response atualizarEmployee(String guest, Integer id) {
+    public Response atualizarEmployee(String employee, Integer id) {
         return
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
                     .pathParam(EmployeeData.ID_EMPLOYEE, id)
-                    .body(guest)
+                    .body(employee)
                 .when()
                     .put(EmployeeData.ENDPOINT_ATUALIZAR_EMPLOYEE + String.format("{%s}", EmployeeData.ID_EMPLOYEE))
                 ;
