@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class EmployeeResponse {
-    private Long id;
+    private Integer id;
     private String name;
     private String role;
     private Double remuneration;
