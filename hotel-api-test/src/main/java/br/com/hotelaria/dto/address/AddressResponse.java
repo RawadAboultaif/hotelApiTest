@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AddressResponse {
 
-    private Long id;
+    private Integer id;
     private String streetName;
     private String number;
     private String complement;
