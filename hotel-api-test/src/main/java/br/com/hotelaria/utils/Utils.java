@@ -1,6 +1,7 @@
 package br.com.hotelaria.utils;
 
 
+import br.com.hotelaria.dto.address.AddressRequest;
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.payment.PaymentRequest;
@@ -51,4 +52,5 @@ public class Utils {
     public static String convertGuestToJson(GuestRequest guestRequest) { return new Gson().toJson(guestRequest);}
     public static String convertEmployeeToJson(EmployeeRequest employeeRequest) { return new Gson().toJson(employeeRequest);}
     public static String convertPaymentToJson(PaymentRequest paymentRequest) { return new Gson().toJson(paymentRequest);}
+    public static String convertAddressToJson(AddressRequest addressRequest) { return new Gson().toJson(addressRequest);}
 }
