@@ -40,7 +40,6 @@ public class AddressClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(AddressData.ID_ADDRESS, idAddress)
                 .when()
                     .delete(AddressData.ENDPOINT_ADDRESS + String.format("{%s}", AddressData.ID_ADDRESS))
@@ -63,7 +62,6 @@ public class AddressClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(AddressData.ID_ADDRESS, idAddress)
                 .when()
                     .get(AddressData.ENDPOINT_ADDRESS + String.format("{%s}", AddressData.ID_ADDRESS))

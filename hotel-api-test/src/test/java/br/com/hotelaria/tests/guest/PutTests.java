@@ -1,6 +1,8 @@
 package br.com.hotelaria.tests.guest;
 
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.GuestData;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.guest.GuestResponse;
@@ -25,7 +27,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve atualizar guest com sucesso")
-    public void testDeveAtualizarGuestComSucesso() {
+    public void testMustUpdateClient() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestCadastrado = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
@@ -49,7 +51,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar atualizar guest")
-    public void testDeveRetornarErroPadraoAoAtualizarGuestComCamposVazios() {
+    public void testMustReturnErroWhenUpdatingClientWithEmptyFields() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestCadastrado = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
@@ -59,18 +61,18 @@ public class PutTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O nome não pode estar vazio"))
-                .body(containsString("O telefone não pode estar vazio"))
-                .body(containsString("O cpf é inválido"))
-                .body(containsString("A data de nascimento não pode ser nulo"))
-                .body(containsString("O email não pode estar vazio"));
+                .body(containsString(GuestData.NAME_NOT_EMPTY))
+                .body(containsString(GuestData.PHONE_NOT_EMPTY))
+                .body(containsString(GuestData.CPF_INVALID))
+                .body(containsString(GuestData.BIRTHDAY_NOT_EMPTY))
+                .body(containsString(GuestData.EMAIL_NOT_EMPTY));
 
         guestClient.deletarGuest(guestCadastrado.getId());
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar atualizar guest")
-    public void testDeveRetornarErroPadraoAoAtualizarCpfGuestParaUmExistente() {
+    public void testMustReturnErrorWhenUpdatingClientCpfToOneAlreadyRegistered() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestCadastrado = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
@@ -84,7 +86,7 @@ public class PutTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O Cpf ja esta cadastrado"));
+                .body(containsString(ValuesData.CPF_ALREADY_REGISTERED));
 
         guestClient.deletarGuest(guestCadastrado.getId());
         guestClient.deletarGuest(guestCadastrado2.getId());

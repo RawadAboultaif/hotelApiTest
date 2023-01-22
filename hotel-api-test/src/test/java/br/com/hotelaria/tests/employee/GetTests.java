@@ -1,6 +1,7 @@
 package br.com.hotelaria.tests.employee;
 
 import br.com.hotelaria.client.EmployeeClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.employee.EmployeeResponse;
@@ -12,8 +13,6 @@ import io.qameta.allure.Story;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.containsString;
@@ -27,7 +26,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve buscar employee com sucesso")
-    public void testDeveBuscarListaDeEmployeeComSucesso() {
+    public void testMustGetListOfAllEmployees() {
 
         EmployeeRequest employeeRequest = EmployeeFactory.employeeCompleto();
         EmployeeRequest employeeRequest1 = EmployeeFactory.employeeCompleto();
@@ -50,7 +49,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve buscar employee com sucesso")
-    public void testDeveBuscarEmployeePorCpfComSucesso() {
+    public void testMustFindEmployeeByCpf() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
         EmployeeResponse employeeResponse = employeeClient.cadastrarEmployee(Utils.convertEmployeeToJson(novoEmployee))
@@ -76,12 +75,12 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao buscar employee")
-    public void testDeveRetornarErroPadraoAoBuscarEmployeePorCpfInvalido() {
+    public void testMustReturnErrorWhenSearchingEmployeeByInvalidCpf() {
 
         employeeClient.buscarEmployeePorCpf(Utils.faker.random().hex(11))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O Cpf não esta cadastrado"));
+                .body(containsString(ValuesData.CPF_DONT_EXIST));
     }
 }

@@ -25,7 +25,6 @@ public class PaymentClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(PaymentData.ID_PAYMENT, idPayment)
                 .when()
                     .delete(PaymentData.ENDPOINT_PAYMENT + String.format("{%s}", PaymentData.ID_PAYMENT))
@@ -48,7 +47,6 @@ public class PaymentClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(PaymentData.ID_PAYMENT, idPayment)
                 .when()
                     .get(PaymentData.ENDPOINT_PAYMENT + String.format("{%s}", PaymentData.ID_PAYMENT))

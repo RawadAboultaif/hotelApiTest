@@ -1,6 +1,8 @@
 package br.com.hotelaria.tests.guest;
 
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.GuestData;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.guest.GuestResponse;
@@ -24,7 +26,7 @@ public class DeleteTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro ao deletar guest")
-    public void testDeveRetornarErroAoDeletarGuestInexistente() {
+    public void testMustReturnErrorWhenDeletingNonExistentClient() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
 
@@ -38,6 +40,6 @@ public class DeleteTests extends BaseTest {
         guestClient.deletarGuest(guestResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
     }
 }

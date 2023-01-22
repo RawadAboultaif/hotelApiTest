@@ -1,6 +1,7 @@
 package br.com.hotelaria.tests.guest;
 
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.GuestData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.dto.guest.GuestRequest;
@@ -25,7 +26,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve cadastrar guest com sucesso")
-    public void testeDeveCadastrarGuestValidoComSucesso() {
+    public void testMustSaveGuest() {
 
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
@@ -47,35 +48,35 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar guest")
-    public void testDeveRetornarErroPadraoAoCadastrarGuestComCamposVazios() {
+    public void testMustReturnErrorWhenSavingClientWithEmptyFields() {
 
         GuestRequest guestRequestVazio = GuestFactory.guestComTodosCamposVazios();
         guestClient.cadastrarGuest(Utils.convertGuestToJson(guestRequestVazio))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O nome não pode estar vazio"))
-                .body(containsString("O telefone não pode estar vazio"))
-                .body(containsString("O cpf é inválido"))
-                .body(containsString("A data de nascimento não pode ser nulo"))
-                .body(containsString("O email não pode estar vazio"));
+                .body(containsString(GuestData.NAME_NOT_EMPTY))
+                .body(containsString(GuestData.PHONE_NOT_EMPTY))
+                .body(containsString(GuestData.CPF_INVALID))
+                .body(containsString(GuestData.BIRTHDAY_NOT_EMPTY))
+                .body(containsString(GuestData.EMAIL_NOT_EMPTY));
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar guest")
-    public void testDeveRetornarErroPadraoAoCadastrarGuestComDataNascimentoNoFuturo() {
+    public void testMustReturnErrorWhenSavingClientWithBirthdayInTheFuture() {
 
         GuestRequest guestRequestComDataNascimentoFuturo = GuestFactory.guestCompletoComDataNascimentoNoFuturo();
         guestClient.cadastrarGuest(Utils.convertGuestToJson(guestRequestComDataNascimentoFuturo))
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("A data tem quer anterior a data atual"));
+                .body(containsString(GuestData.CURRENT_DATE_AFTER_END_DATE));
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar guest")
-    public void testeDeveRetornarErroPadraoAoCadastrarGuestComIdadeMenorQueDezoito() {
+    public void testMustReturnErrorWhenSavingClientWithAgeUnderEighteen() {
 
         GuestRequest guestRequestComIdadeMenorQueDezoito = GuestFactory.guestComIdadeMenorQueDezoito();
 
@@ -83,6 +84,6 @@ public class PostTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("Idade menor que 18"));
+                .body(containsString(GuestData.AGE_UNDER_EIGHTEEN));
     }
 }
