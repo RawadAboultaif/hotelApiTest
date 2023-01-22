@@ -25,7 +25,6 @@ public class EmployeeClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(EmployeeData.ID_EMPLOYEE, idEmployee)
                 .when()
                     .delete(EmployeeData.ENDPOINT_EMPLOYEE + String.format("{%s}", EmployeeData.ID_EMPLOYEE))
@@ -36,7 +35,6 @@ public class EmployeeClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                 .when()
                     .get(EmployeeData.ENDPOINT_LIST_ALL_EMPLOYEE)
                 ;
@@ -46,7 +44,6 @@ public class EmployeeClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(EmployeeData.SOCIAL_SECURITY_NUMBER_EMPLOYEE, cpf)
                 .when()
                     .get(EmployeeData.ENDPOINT_BUSCA_POR_CPF_EMPLOYEE + String.format("{%s}", EmployeeData.SOCIAL_SECURITY_NUMBER_EMPLOYEE))

@@ -2,6 +2,8 @@ package br.com.hotelaria.tests.payment;
 
 import br.com.hotelaria.client.GuestClient;
 import br.com.hotelaria.client.PaymentClient;
+import br.com.hotelaria.data.changeless.PaymentData;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.data.factory.PaymentFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
@@ -29,7 +31,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve cadastrar payment com sucesso")
-    public void testDeveCadastrarPaymentEVincularComGuestComSucesso() {
+    public void testMustSavePaymentAndLinkWithClient() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         PaymentRequest novoPaymentRequest = PaymentFactory.novoPaymentVálido();
@@ -50,7 +52,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar payment")
-    public void testDeveRetornarErroAoCadastrarPaymentValidoAUmUsuarioInexistente() {
+    public void testMustReturnErrorWhenSavingPaymentToNonExistentClient() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestResponse = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
@@ -61,25 +63,24 @@ public class PostTests extends BaseTest {
         paymentClient.cadastroPayment(Utils.convertPaymentToJson(novoPaymentRequest), guestResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
 
         guestClient.deletarGuest(guestResponse.getId());
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar payment")
-    public void testDeveRetornarErroAoCadastrarPaymentComNumeroCartaoInválido() {
+    public void testMustReturnErroWhenSavingPaymentoWithInvalidCreditCardNumber() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestResponse = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
                 .then().extract().as(GuestResponse.class);
-        guestClient.deletarGuest(guestResponse.getId());
 
         PaymentRequest paymentRequestNumeroCartaoInvalido = PaymentFactory.novoPaymentNumeroCartaoInvalido();
         paymentClient.cadastroPayment(Utils.convertPaymentToJson(paymentRequestNumeroCartaoInvalido), guestResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("Cartão inválido"));
+                .body(containsString(PaymentData.CARD_INVALID));
 
         guestClient.deletarGuest(guestResponse.getId());
     }

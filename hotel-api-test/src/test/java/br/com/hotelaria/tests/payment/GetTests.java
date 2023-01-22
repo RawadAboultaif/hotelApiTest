@@ -2,6 +2,7 @@ package br.com.hotelaria.tests.payment;
 
 import br.com.hotelaria.client.GuestClient;
 import br.com.hotelaria.client.PaymentClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.data.factory.PaymentFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
@@ -30,7 +31,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve buscar payment com sucesso")
-    public void testDeveBuscarPaymentPorIdComSucesso() {
+    public void testMustFindPaymentById() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         PaymentRequest novoPaymentRequest = PaymentFactory.novoPaymentVálido();
@@ -55,7 +56,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao buscar payment")
-    public void testDeveRetornarErroAoBuscarPaymentoPorIdInexistente() {
+    public void testMustReturnErrorWhenSearchingPaymentByNonExistentId() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         PaymentRequest novoPaymentRequest = PaymentFactory.novoPaymentVálido();
@@ -71,6 +72,6 @@ public class GetTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
     }
 }

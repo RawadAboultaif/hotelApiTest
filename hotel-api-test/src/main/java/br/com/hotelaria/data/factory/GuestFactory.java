@@ -42,6 +42,7 @@ public class GuestFactory {
         guestRequestVazio.setPhone(StringUtils.EMPTY);
         return guestRequestVazio;
     }
+
     private static GuestRequest criarGuest() {
         GuestRequest novoGuestRequest = GuestRequest.builder()
                 .name(Utils.faker.name().fullName())

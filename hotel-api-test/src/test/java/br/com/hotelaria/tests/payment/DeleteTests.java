@@ -2,6 +2,7 @@ package br.com.hotelaria.tests.payment;
 
 import br.com.hotelaria.client.GuestClient;
 import br.com.hotelaria.client.PaymentClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.data.factory.PaymentFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
@@ -30,7 +31,7 @@ public class DeleteTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro ao deletar payment")
-    public void testDeveRetornarErroAoDeletarPayment() {
+    public void testMustReturnErrorWhenDeletingNonExistentPayment() {
 
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
@@ -45,7 +46,7 @@ public class DeleteTests extends BaseTest {
         paymentClient.deletePayment(paymentResponse.getId());
         paymentClient.deletePayment(paymentResponse.getId())
                 .then()
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
 
         guestClient.deletarGuest(guestResponse.getId());
     }

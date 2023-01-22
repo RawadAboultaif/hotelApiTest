@@ -2,6 +2,7 @@ package br.com.hotelaria.tests.address;
 
 import br.com.hotelaria.client.AddressClient;
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.AddressFactory;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.address.AddressRequest;
@@ -29,7 +30,7 @@ public class DeleteTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro ao deletar address")
-    public void testDeveRetornarErroAoDeletarAddressComIdInexistente() {
+    public void testMustReturnErrorWhenDeletingAddressWithIdNonExistent() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -44,7 +45,7 @@ public class DeleteTests extends BaseTest {
         addressClient.deletarAddress(addressResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
 
         guestClient.deletarGuest(guestResponse.getId());
     }

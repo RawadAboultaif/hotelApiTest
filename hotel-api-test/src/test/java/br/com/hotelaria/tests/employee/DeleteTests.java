@@ -1,6 +1,7 @@
 package br.com.hotelaria.tests.employee;
 
 import br.com.hotelaria.client.EmployeeClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.employee.EmployeeResponse;
@@ -24,7 +25,7 @@ public class DeleteTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro ao deletar employee")
-    public void testDeveRetornarErroPadrãoAoDeletarEmployeeInexistente() {
+    public void testMustReturnErrorWhenDeletingNonExistentEmployee() {
 
         EmployeeRequest employeeRequest = EmployeeFactory.employeeCompleto();
 
@@ -37,6 +38,6 @@ public class DeleteTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
     }
 }

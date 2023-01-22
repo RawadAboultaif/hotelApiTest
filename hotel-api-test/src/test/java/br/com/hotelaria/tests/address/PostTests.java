@@ -3,6 +3,7 @@ package br.com.hotelaria.tests.address;
 import br.com.hotelaria.client.AddressClient;
 import br.com.hotelaria.client.EmployeeClient;
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.AddressFactory;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.data.factory.GuestFactory;
@@ -36,7 +37,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve cadastrar address com sucesso")
-    public void testDeveCadastrarAddressEVincularAoClienteComSucesso() {
+    public void testMustSaveAddressAndLinkToClient() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -66,7 +67,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve cadastrar address com sucesso")
-    public void testDeveCadastrarAddressEVincularAoEmployeeComSucesso() {
+    public void testMustSaveAddressAndLinkToEmployee() {
 
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
@@ -98,7 +99,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve cadastrar address com sucesso")
-    public void testDeveCadastrarAddressComCampoComplementVazio() {
+    public void testMustSaveAddressWithEmptyComplement() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCampoComplementVazio();
@@ -128,7 +129,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar address")
-    public void testDeveRetornarErroAoVincularAddressAoIdGuestInexistente() {
+    public void testMustReturnErrorWhenLinkingAddressToNonExistentGuest() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -140,14 +141,14 @@ public class PostTests extends BaseTest {
         addressClient.cadastrarAddressIdGuest(Utils.convertAddressToJson(novoAddressRequest), guestResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
 
         guestClient.deletarGuest(guestResponse.getId());
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar address")
-    public void testDeveRetornarErroAoVincularAddressAoIdEmployeeInexistente() {
+    public void testMustReturnErrorWhenLinkingAddressToNonExistentEmployee() {
 
         EmployeeRequest novoEmployeeRequest = EmployeeFactory.employeeCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -159,7 +160,7 @@ public class PostTests extends BaseTest {
         addressClient.cadastrarAddressIdGuest(Utils.convertAddressToJson(novoAddressRequest), employeeResponse.getId())
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O id nao existe"));
+                .body(containsString(ValuesData.ID_DONT_EXIST));
 
         employeeClient.deletarEmployee(employeeResponse.getId());
     }

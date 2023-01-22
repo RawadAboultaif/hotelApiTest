@@ -9,4 +9,6 @@ public class PaymentData {
     public static final String ENDPOINT_PAYMENT = "/payment/";
 
     public static final String ID_PAYMENT = "idPayment";
+
+    public static final String CARD_INVALID = "Invalid card number";
 }

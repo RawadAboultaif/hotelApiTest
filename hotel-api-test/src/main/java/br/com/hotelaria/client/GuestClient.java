@@ -9,7 +9,6 @@ import static io.restassured.RestAssured.given;
 public class GuestClient {
 
     public Response cadastrarGuest(String guest) {
-
         return
                 given()
                     .log().all()
@@ -24,7 +23,6 @@ public class GuestClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                     .pathParam(GuestData.ID_GUEST, idGuest)
                 .when()
                     .delete(GuestData.ENDPOINT_GUEST + String.format("{%s}", GuestData.ID_GUEST))
@@ -35,7 +33,6 @@ public class GuestClient {
         return
                 given()
                     .log().all()
-                    .spec(AuthSpecs.requestSpec())
                 .when()
                     .get(GuestData.ENDPOINT_LIST_ALL_GUEST)
                 ;

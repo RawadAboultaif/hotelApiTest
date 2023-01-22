@@ -1,6 +1,7 @@
 package br.com.hotelaria.tests.guest;
 
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.guest.GuestResponse;
@@ -25,7 +26,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve buscar guest com sucesso")
-    public void testDeveBuscarListaDeGuestComSucesso() {
+    public void testMustGetListOfAllClients() {
 
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
@@ -51,7 +52,7 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve buscar guest com sucesso")
-    public void testDeveBuscarGuestPorCpfComSucesso() {
+    public void testMustFindClientByCpf() {
 
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
@@ -79,11 +80,11 @@ public class GetTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao buscar guest")
-    public void testDeveRetornarErroAoBuscarGuestComCpfInvalido() {
+    public void testMustReturnErrorWhenSearchingGuestByInvalidCpf() {
 
         guestClient.buscarGuestPorCpf(Utils.faker.number().digits(20))
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(containsString("O Cpf não esta cadastrado"));
+                .body(containsString(ValuesData.CPF_DONT_EXIST));
     }
 }

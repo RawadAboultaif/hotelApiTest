@@ -3,6 +3,8 @@ package br.com.hotelaria.tests.address;
 import br.com.hotelaria.client.AddressClient;
 import br.com.hotelaria.client.EmployeeClient;
 import br.com.hotelaria.client.GuestClient;
+import br.com.hotelaria.data.changeless.AddressData;
+import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.AddressFactory;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.data.factory.GuestFactory;
@@ -35,7 +37,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve atualizar address com sucesso")
-    public void testDeveAtualizarAddressComSucesso() {
+    public void testMustUpdateAddress() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -66,7 +68,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar atualizar address")
-    public void testDeveRetornarErroAoAtualizarAddressComCamposVazios() {
+    public void testMustReturnErrorWhenUpdatingAddressWithEmptyFields() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         AddressRequest novoAddressRequest = AddressFactory.addressCompleto();
@@ -82,12 +84,12 @@ public class PutTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O nome da rua nao pode estar vazia"))
-                .body(containsString("O número do local não pode estar vazio"))
-                .body(containsString("O nome da cidade não pode estar vazia"))
-                .body(containsString("O número do estado não pode estar vazio"))
-                .body(containsString("O código postal não pode estar vazio"))
-                .body(containsString("O nome do país não pode estar vazio"));
+                .body(containsString(AddressData.STREETNAME_NOT_EMPTY))
+                .body(containsString(AddressData.NUMBER_NOT_EMPTY))
+                .body(containsString(AddressData.CITY_NOT_EMPTY))
+                .body(containsString(AddressData.STATE_NOT_EMPTY))
+                .body(containsString(AddressData.ZIPCODE_NOT_EMPTY))
+                .body(containsString(AddressData.COUNTRY_NOT_EMPTY));
 
         guestClient.deletarGuest(guestResponse.getId());
     }

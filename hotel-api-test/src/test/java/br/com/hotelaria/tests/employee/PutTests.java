@@ -2,6 +2,7 @@ package br.com.hotelaria.tests.employee;
 
 
 import br.com.hotelaria.client.EmployeeClient;
+import br.com.hotelaria.data.changeless.EmployeeData;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.employee.EmployeeResponse;
@@ -26,7 +27,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve atualizar employee com sucesso")
-    public void testDeveAtualizarEmployeeComSucesso() {
+    public void testMustUpdateEmployee() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
 
@@ -55,7 +56,7 @@ public class PutTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar atualizar employee")
-    public void testDeveRetornarErroAoAtualizarEmployeeComCamposVazios() {
+    public void testMustReturnErrorWhenUpdatingEmployeeWithEmptyFields() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
 
@@ -66,20 +67,20 @@ public class PutTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O nome não pode estar vazio"))
-                .body(containsString("O cargo não pode estar vazio"))
-                .body(containsString("O salário não pode ser nulo"))
-                .body(containsString("O horário de trabalho não pode estar vazio"))
-                .body(containsString("O email não pode estar vazio"))
-                .body(containsString("O telefone não pode estar vazio"))
-                .body(containsString("O cpf é inválid"));
+                .body(containsString(EmployeeData.NOME_NOT_EMPTY))
+                .body(containsString(EmployeeData.ROLE_NOT_EMPTY))
+                .body(containsString(EmployeeData.REMUNERATION_NOT_NULL))
+                .body(containsString(EmployeeData.SCHEDULE_NOT_EMPTY))
+                .body(containsString(EmployeeData.EMAIL_NOT_EMPTY))
+                .body(containsString(EmployeeData.PHONE_NOT_EMPTY))
+                .body(containsString(EmployeeData.CPF_INVALID));
 
         employeeClient.deletarEmployee(employeeCadastrado.getId());
     }
 
     @Test
     @Story("Deve retornar erro padrão ao tentar atualizar employee")
-    public void testDeveRetornarErroAoAtualizarSalarioDoEmployeeParaZero() {
+    public void testMustReturnErrorWhenUpdatingRemunerationToZero() {
 
         EmployeeRequest novoEmployee = EmployeeFactory.employeeCompleto();
 
@@ -91,7 +92,7 @@ public class PutTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(containsString("O salário tem que ser maior que zero"));
+                .body(containsString(EmployeeData.REMUNERATION_ABOVE_ZERO));
 
         employeeClient.deletarEmployee(employeeCadastrado.getId());
     }
