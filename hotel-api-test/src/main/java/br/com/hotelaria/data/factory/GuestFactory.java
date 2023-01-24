@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class GuestFactory {
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     public static GuestRequest guestCompleto() {
         return criarGuest();
     }
