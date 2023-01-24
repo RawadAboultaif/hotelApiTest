@@ -18,6 +18,7 @@ public class UnitData {
 
     public static final String UNIT_FULL = "FULL";
 
+    public static final String UNIT_F = "F";
     public static final String UNIT_LIMIT_CANNOT_BE_UNDER_ZERO = "Room price or limit guest cannot be under zero";
 
     public static final String ROOM_NUMBER_ALREADY_EXIST = "Room number already exist";

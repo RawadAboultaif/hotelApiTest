@@ -16,10 +16,10 @@ public class AddressClient {
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .pathParam(GuestData.ID_GUEST, idGuest)
+                    .pathParam(GuestData.GUEST_ID, idGuest)
                     .body(address)
                 .when()
-                    .post(AddressData.ENDPOINT_ADDRESS_IDGUEST + String.format("{%s}", GuestData.ID_GUEST))
+                    .post(AddressData.ENDPOINT_ADDRESS_IDGUEST + String.format("{%s}", GuestData.GUEST_ID))
                 ;
     }
 

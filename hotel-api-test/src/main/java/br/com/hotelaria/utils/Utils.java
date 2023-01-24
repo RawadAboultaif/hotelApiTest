@@ -5,6 +5,7 @@ import br.com.hotelaria.dto.address.AddressRequest;
 import br.com.hotelaria.dto.employee.EmployeeRequest;
 import br.com.hotelaria.dto.guest.GuestRequest;
 import br.com.hotelaria.dto.payment.PaymentRequest;
+import br.com.hotelaria.dto.rent.RentRequest;
 import br.com.hotelaria.dto.unit.UnitRequest;
 import com.google.gson.Gson;
 import net.datafaker.Faker;
@@ -55,4 +56,5 @@ public class Utils {
     public static String convertPaymentToJson(PaymentRequest paymentRequest) { return new Gson().toJson(paymentRequest);}
     public static String convertAddressToJson(AddressRequest addressRequest) { return new Gson().toJson(addressRequest);}
     public static String convertUnitToJson(UnitRequest unitRequest) { return new Gson().toJson(unitRequest);}
+    public static String convertRentToJson(RentRequest rentRequest) { return new Gson().toJson(rentRequest);}
 }

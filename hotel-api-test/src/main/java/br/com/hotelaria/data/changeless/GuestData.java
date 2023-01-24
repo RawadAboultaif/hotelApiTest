@@ -10,7 +10,7 @@ public class GuestData {
 
     public static final String ENDPOINT_GUEST = "/guest/";
 
-    public static final String ID_GUEST = "idGuest";
+    public static final String GUEST_ID = "idGuest";
 
     public static final String SOCIAL_SECURITY_NUMBER_GUEST = "socialSecurityNumber";
 
