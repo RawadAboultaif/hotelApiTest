@@ -23,9 +23,9 @@ public class GuestClient {
         return
                 given()
                     .log().all()
-                    .pathParam(GuestData.ID_GUEST, idGuest)
+                    .pathParam(GuestData.GUEST_ID, idGuest)
                 .when()
-                    .delete(GuestData.ENDPOINT_GUEST + String.format("{%s}", GuestData.ID_GUEST))
+                    .delete(GuestData.ENDPOINT_GUEST + String.format("{%s}", GuestData.GUEST_ID))
                 ;
     }
 
@@ -54,10 +54,10 @@ public class GuestClient {
                 given()
                     .log().all()
                     .spec(AuthSpecs.requestSpec())
-                    .pathParam(GuestData.ID_GUEST, id)
+                    .pathParam(GuestData.GUEST_ID, id)
                     .body(guest)
                 .when()
-                    .put(GuestData.ENDPOINT_ATUALIZAR_GUEST + String.format("{%s}", GuestData.ID_GUEST))
+                    .put(GuestData.ENDPOINT_ATUALIZAR_GUEST + String.format("{%s}", GuestData.GUEST_ID))
                 ;
     }
 }

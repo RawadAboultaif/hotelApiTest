@@ -14,10 +14,10 @@ public class PaymentClient {
                 given()
                         .log().all()
                         .spec(AuthSpecs.requestSpec())
-                        .pathParam(GuestData.ID_GUEST, idGuest)
+                        .pathParam(GuestData.GUEST_ID, idGuest)
                         .body(payment)
                 .when()
-                        .post(PaymentData.ENDPOINT_VINCULAR_GUEST_PAYMENT + String.format("{%s}", GuestData.ID_GUEST))
+                        .post(PaymentData.ENDPOINT_VINCULAR_GUEST_PAYMENT + String.format("{%s}", GuestData.GUEST_ID))
                 ;
     }
 
