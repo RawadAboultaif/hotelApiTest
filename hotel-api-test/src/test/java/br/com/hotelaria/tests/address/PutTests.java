@@ -4,7 +4,6 @@ import br.com.hotelaria.client.AddressClient;
 import br.com.hotelaria.client.EmployeeClient;
 import br.com.hotelaria.client.GuestClient;
 import br.com.hotelaria.data.changeless.AddressData;
-import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.AddressFactory;
 import br.com.hotelaria.data.factory.EmployeeFactory;
 import br.com.hotelaria.data.factory.GuestFactory;
@@ -24,7 +23,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Atualizar Tests")
 @Feature("Address")

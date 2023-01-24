@@ -1,7 +1,6 @@
 package br.com.hotelaria.client;
 
 import br.com.hotelaria.data.changeless.EmployeeData;
-import br.com.hotelaria.data.changeless.GuestData;
 import br.com.hotelaria.specs.AuthSpecs;
 import io.restassured.response.Response;
 

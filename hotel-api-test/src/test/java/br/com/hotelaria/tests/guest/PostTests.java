@@ -3,8 +3,8 @@ package br.com.hotelaria.tests.guest;
 import br.com.hotelaria.client.GuestClient;
 import br.com.hotelaria.data.changeless.GuestData;
 import br.com.hotelaria.data.factory.GuestFactory;
-import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.dto.guest.GuestRequest;
+import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.tests.base.BaseTest;
 import br.com.hotelaria.utils.Utils;
 import io.qameta.allure.Epic;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Cadastro Tests")
 @Feature("Guest")

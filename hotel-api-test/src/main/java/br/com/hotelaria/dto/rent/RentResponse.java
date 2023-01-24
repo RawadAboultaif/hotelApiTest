@@ -4,8 +4,6 @@ import br.com.hotelaria.dto.guest.GuestResponse;
 import br.com.hotelaria.dto.unit.UnitResponse;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class RentResponse {
 

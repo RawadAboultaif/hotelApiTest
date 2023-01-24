@@ -1,7 +1,6 @@
 package br.com.hotelaria.tests.guest;
 
 import br.com.hotelaria.client.GuestClient;
-import br.com.hotelaria.data.changeless.GuestData;
 import br.com.hotelaria.data.changeless.ValuesData;
 import br.com.hotelaria.data.factory.GuestFactory;
 import br.com.hotelaria.dto.guest.GuestRequest;
