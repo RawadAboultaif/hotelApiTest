@@ -9,7 +9,6 @@ import br.com.hotelaria.dto.rent.RentRequest;
 import br.com.hotelaria.dto.unit.UnitRequest;
 import com.google.gson.Gson;
 import net.datafaker.Faker;
-
 import org.junit.Assert;
 
 import java.util.Locale;

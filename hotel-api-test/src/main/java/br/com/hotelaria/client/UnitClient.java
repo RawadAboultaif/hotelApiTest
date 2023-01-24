@@ -1,7 +1,5 @@
 package br.com.hotelaria.client;
 
-import br.com.hotelaria.data.changeless.GuestData;
-import br.com.hotelaria.data.changeless.PaymentData;
 import br.com.hotelaria.data.changeless.UnitData;
 import br.com.hotelaria.specs.AuthSpecs;
 import io.restassured.response.Response;

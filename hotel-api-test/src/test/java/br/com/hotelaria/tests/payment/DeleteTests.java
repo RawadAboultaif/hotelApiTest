@@ -11,7 +11,6 @@ import br.com.hotelaria.dto.payment.PaymentRequest;
 import br.com.hotelaria.dto.payment.PaymentResponse;
 import br.com.hotelaria.tests.base.BaseTest;
 import br.com.hotelaria.utils.Utils;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

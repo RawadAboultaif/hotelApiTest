@@ -14,8 +14,8 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Busca Tests")
 @Feature("Employee")
