@@ -70,7 +70,7 @@ public class PostTests extends BaseTest {
 
     @Test
     @Story("Deve retornar erro padrão ao tentar cadastrar payment")
-    public void testMustReturnErroWhenSavingPaymentoWithInvalidCreditCardNumber() {
+    public void testMustReturnErroWhenSavingPaymentWithInvalidCreditCardNumber() {
 
         GuestRequest novoGuestRequest = GuestFactory.guestCompleto();
         GuestResponse guestResponse = guestClient.cadastrarGuest(Utils.convertGuestToJson(novoGuestRequest))
